@@ -1,11 +1,11 @@
 #!/bin/bash
 # ---------------------------------------------------------------------------
-# 
+#
 # Karotz Auto Install Script
-# 
+#
 # Author: Rodolphe Franceschi <rodolphe.franceschi@gmail.com>
-# 
-# Under MIT License 
+#
+# Under MIT License
 # @ see http://opensource.org/licenses/MIT
 #
 # ---------------------------------------------------------------------------
@@ -73,7 +73,7 @@ function LOG {
 }
 
 function ERROR {
-    LOG "$1" 
+    LOG "$1"
     sync
     killall musicloop.sh
     killall madplay
@@ -121,7 +121,7 @@ if [ ! -e "${CURRDIRINSTALLER}/rootfs.img.gz.md5" ]; then
 fi
 
 SIGN=$(md5sum ${CURRDIRINSTALLER}/rootfs.img.gz | cut -d' ' -f1)
-REF=$(cat ${CURRDIRINSTALLER}/rootfs.img.gz.md5 | cut -d' ' -f1) 
+REF=$(cat ${CURRDIRINSTALLER}/rootfs.img.gz.md5 | cut -d' ' -f1)
 
 echo "Computed  MD5 :"$SIGN
 echo "Reference MD5 :"$REF
@@ -158,10 +158,17 @@ LOG "Web Server Configuration"
 led_blue_pulse
 
 # Configuration for HTTPD, out of rootfs
-if [ ! -f /usr/httpd.conf ]; then
-  LOG "Installing httpd.conf file"
-  cp ${CURRDIRINSTALLER}/conf/httpd.conf /usr/
-  chown root.root /usr/httpd.conf
+if [ ! -f /usr/httpd_sec.conf ]; then
+  LOG "Installing httpd_sec.conf file"
+  cp ${CURRDIRINSTALLER}/conf/httpd_sec.conf /usr/
+  chown root.root /usr/httpd_sec.conf
+fi
+
+# Configuration for HTTPD, out of rootfs
+if [ ! -f /usr/httpd_stream.conf ]; then
+  LOG "Installing httpd_sec.conf file"
+  cp ${CURRDIRINSTALLER}/conf/httpd_stream.conf /usr/
+  chown root.root /usr/httpd_stream.conf
 fi
 
 if [ ! -d /usr/www/ ]; then
@@ -212,5 +219,3 @@ sleep 3
 
 SAY "karotz_off"
 echo  "::once:/sbin/reboot" >> /etc/inittab
-
-

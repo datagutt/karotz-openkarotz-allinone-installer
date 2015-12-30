@@ -1,0 +1,12 @@
+[submodule "firmware"]
+	path = firmware
+	url = git@github.com:datagutt/karotz-openkarotz-firmware.git
+	branch = dev
+[submodule "postinstall/alternativevoices"]
+	path = postinstall/alternativevoices
+	url = git@github.com:rofra/karotz-alternativevoices.git
+	branch = master
+[submodule "websources"]
+	path = websources
+	url = git@github.com:datagutt/karotz-openkarotz-websources-installer.git
+	branch = dev
